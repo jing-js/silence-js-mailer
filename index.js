@@ -13,13 +13,14 @@ class Mailer {
         pass: config.password
       },
       pool: config.pool !== false,
-      maxConnections: config.maxConnections || 10,
-      maxMessages: config.maxMessages || 200,
+      maxConnections: config.maxConnections || 5,
+      maxMessages: config.maxMessages || 100,
       rateLimit: config.rateLimit === false ? false : (config.rateLimit || 1000)
     });
   }
   close() {
     this._mailer.close();
+    return Promise.resolve();
   }
   send(options) {
     return new Promise((resolve, reject) => {
